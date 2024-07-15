@@ -1,0 +1,41 @@
+#server:
+#  port: 8084
+#
+#spring:
+#  application:
+#    name: API-GATEWAY
+#
+#
+#  cloud:
+#    gateway:
+#      routes:
+#      
+#      
+#        - id: USER-SERVICE
+#          uri: lb://USER-SERVICE
+#          predicates:
+#            - Path=/api/v1/users/** 
+#            
+#        - id: COLLEGE-SERVICE
+#          uri: lb://COLLEGE-SERVICE
+#          predicates:
+#            - Path=/colleges/**
+#
+#        - id: DEPARTMENT-SERVICE
+#          uri: lb://DEPARTMENT-SERVICE
+#          predicates:
+#            - Path=/departments/**
+#            
+#            
+#
+#eureka:
+#  instance:
+#    prefer-ip-address: true
+#  client:
+#    fetch-registry: true
+#    register-with-eureka: true
+#    service-url:
+#      defaultZone: http://localhost:8761/eureka
+#
+#
+###okta configuration for api gateway
