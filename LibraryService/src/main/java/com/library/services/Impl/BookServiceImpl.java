@@ -1,47 +1,57 @@
 package com.library.services.Impl;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.stream.Collectors;
 
-
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.library.entities.Book;
 import com.library.exception.ResourceNotFoundException;
+import com.library.playloads.BookDto;
 import com.library.repository.BookRepo;
-import com.library.services.BookService;
+import com.library.service.BookService;
 
 @Service
 public class BookServiceImpl implements BookService{
 
-	
 	@Autowired
-	private BookRepo bookRepo;
-
+	BookRepo bookRepo;
+	
+    @Autowired
+    private ModelMapper modelMapper;
 	@Override
-	public Book create(Book book) {
+	public BookDto createBook(BookDto bookDto) {
 		
-		return bookRepo.save(book);
+	
+		 Book book = this.modelMapper.map(bookDto, Book.class);
+       Book newBook=this.bookRepo.save(book);
+        
+		return this.modelMapper.map(newBook,BookDto.class);
 	}
 
 	@Override
-	public List<Book> getAll() {
-		return bookRepo.findAll();
+	public BookDto getBookById(Integer bookId) {
+		Book book = this.bookRepo.findById(bookId)
+                .orElseThrow(() -> new ResourceNotFoundException("Book", "book id", bookId));
+        return this.modelMapper.map(book, BookDto.class);	
+
 	}
 
 	@Override
-	public Book get(Integer bookId) {
-		return bookRepo.findById(bookId)
-				.orElseThrow(() -> new ResourceNotFoundException("Book", "Id", bookId));
+	public List<BookDto> getAllBooks() {
+		List<Book> books = this.bookRepo.findAll();
+        return books.stream()
+                .map(book -> this.modelMapper.map(book, BookDto.class))
+                .collect(Collectors.toList());
 	}
-	
-//	@Override
-//	public List<Book> getBookByUserId(Integer userId) {
-//		
-//		return bookRepo.findByUserId(userId);
-//	}
 
-	
+	@Override
+	public List<BookDto> searchBooks(String keyword) {
+		 List<Book> books = this.bookRepo.searchByTitle("%" + keyword + "%");
+	        List<BookDto> bookDtos = books.stream().map((book) -> this.modelMapper.map(book, BookDto.class)).collect(Collectors.toList());
+	        return bookDtos;
+	}
+
 }

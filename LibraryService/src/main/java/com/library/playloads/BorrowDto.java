@@ -1,28 +1,26 @@
-package com.library.entities;
+package com.library.playloads;
 
 import java.util.Date;
 
-import jakarta.persistence.Entity;
+import com.library.entities.Book;
+
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
-@Entity
+
 @Data
 @NoArgsConstructor
-public class Borrow {
+public class BorrowDto {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer borrowId;
 	private String userId;
 	private Date date_of_giving;
 	
-	 @ManyToOne
-	    @JoinColumn(name = "bookId")
-	    private Book book;
-	    
 	
+	    private BookDto book;
+	    
 }
