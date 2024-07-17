@@ -13,15 +13,19 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @NoArgsConstructor
-public class Borrow {
+public class Returnback {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer borrowId;
+	private Integer returnId;
 	private Integer userId;
-	private Date date_of_giving;
+	private Date date_of_Return;
 	
 	 @ManyToOne
 	    @JoinColumn(name = "bookId")
 	    private Book book;
+	 
+	 @ManyToOne
+	    @JoinColumn(name = "borrowId")
+	    private Borrow borrow;
 
 }

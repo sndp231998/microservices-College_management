@@ -2,12 +2,13 @@ package com.library.service;
 
 import java.util.List;
 
+
 import com.library.playloads.BorrowDto;
 
 
 public interface BorrowService {
 	
-BorrowDto createBorrow(BorrowDto borrowDto, Integer userId, Integer bookId);
+BorrowDto createBorrow(BorrowDto borrowDto, Integer bookId);
 	
 
 	//BorrowDto updateProduct(BorrowDto borrowDto, Integer borrowId);
@@ -16,6 +17,7 @@ BorrowDto createBorrow(BorrowDto borrowDto, Integer userId, Integer bookId);
 	BorrowDto getBorrowById(Integer borrowId);
 
 	List<BorrowDto> getAllBorrows();
+	
 
 	//void deleteBorrow(Integer borrowId);
 	
@@ -23,7 +25,7 @@ BorrowDto createBorrow(BorrowDto borrowDto, Integer userId, Integer bookId);
 
 	
 	//get all borrows by user
-	List<BorrowDto> getBorrowsByUser(Integer userId);
+	List<BorrowDto> getBorrowsByUserId(Integer userId);
 	
 	//search borrows
 	//List<BorrowDto> searchBorrows(String keyword);
